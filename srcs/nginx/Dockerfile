@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine:3.12
 
 RUN apk update && apk add nginx  \
 && apk add openssl openssh && mkdir -p var/run/nginx \
