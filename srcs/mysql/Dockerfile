@@ -1,11 +1,14 @@
-FROM alpine
+FROM alpine:3.12
 
-RUN apk -U upgrade && apk add mariadb mariadb-client &&\
-mkdir -p /run/mysqld/
+RUN apk -U upgrade && apk add mariadb mariadb-client openrc && \
+    mkdir -p /run/mysqld/
 
-COPY /src/wordpress.sql  /
-COPY /src/start.sh   /
-COPY /src/my.cnf			/etc/
+COPY	/src/my.cnf			/etc/
+COPY	/src/wordpress.sql		/
+COPY	/src/start.sh			/
+
+RUN chmod 777 start.sh
 
 EXPOSE 3306
-ENTRYPOINT sh start.sh
+#ENTRYPOINT [ "start.sh" ] 
+
