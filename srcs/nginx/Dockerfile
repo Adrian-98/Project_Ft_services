@@ -3,6 +3,8 @@ FROM alpine:3.12
 RUN apk update && apk add nginx  \
 && apk add openssl openssh && mkdir -p var/run/nginx \
 && apk add --no-cache --upgrade bash
+RUN mkdir -p var/www/
+
 
 RUN mkdir /etc/nginx/ssl && \
 openssl req -x509 -nodes -days 365 \
@@ -19,7 +21,7 @@ RUN		echo 'Welcome to SSH of nginx by amunoz-p' > /etc/motd
 
 COPY sshd_config        /etc/ssh/
 COPY nginx.conf         /etc/nginx/
-COPY /index.html		/var/www/
+COPY /index.html		/var/www/index.html
 COPY /ssl_params.conf		/etc/nginx/
 COPY /start.sh			/
 
