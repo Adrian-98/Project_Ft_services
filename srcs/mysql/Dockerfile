@@ -10,5 +10,5 @@ COPY	/src/start.sh			/
 RUN chmod 777 start.sh
 
 EXPOSE 3306
-#ENTRYPOINT [ "start.sh" ] 
+ENTRYPOINT sh  start.sh
 

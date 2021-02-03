@@ -1,3 +1,121 @@
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: nginx
+#   annotations:
+#     metallb.universe.tf/address-pool: default
+# spec:
+#   type: LoadBalancer
+
+#   selector:
+#     app: nginx
+#   ports:
+#     - name: http
+#       port: 80
+#       protocol: TCP
+#       targetPort: 80
+#     - name: https
+#       port: 443
+#       protocol: TCP
+#       targetPort: 443
+#     - name: ssh
+#       port: 22
+#       protocol: TCP
+#       targetPort: 22
+
+# ---
+
+# apiVersion: apps/v1 # Usa apps/v1beta2 para versiones anteriores a 1.9.0
+# kind: Deployment
+# metadata:
+#   name: nginx
+#   labels:
+#     app: nginx
+# spec:
+#   replicas: 1 # indica al controlador que ejecute 1 pods
+#   selector:
+#     matchLabels:
+#       app: nginx
+#   template:
+#     metadata:
+#       labels:
+#         app: nginx
+#     spec:
+#       containers:
+#       - name: nginx
+#         image: my_nginx 
+#         imagePullPolicy: Never
+#         ports:
+#           - containerPort: 80
+#             name: http
+#           - containerPort: 443
+#             name: https
+#           - containerPort: 22
+#             name: ssh
+
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: nginx
+#   labels:
+#     app: nginx
+# spec:
+#   type: LoadBalancer
+#   ports:
+#   - name: http
+#     port: 80
+#     targetPort: 80
+#     protocol: TCP
+#   - name: https
+#     port: 443
+#     targetPort: 443
+#     protocol: TCP
+#   - name: ssh
+#     port: 22
+#     targetPort: 22
+#     protocol: TCP
+#   selector:
+#     app: nginx
+#   loadBalancerIP: 192.168.99.128
+
+# ---
+
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: nginx
+#   labels:
+#     app: nginx
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: nginx
+#   strategy:
+#     type: Recreate
+#   template:
+#     metadata:
+#       name: nginx
+#       labels:
+#         app: nginx
+#     spec:
+#       containers:
+#       - name: nginx
+#         image: my_nginx
+#         imagePullPolicy: Never
+#         ports:
+#         - name: http
+#           containerPort: 80
+#         - name: https
+#           containerPort: 443
+#         - name: ssh
+#           containerPort: 22
+#         livenessProbe:
+#           initialDelaySeconds: 10
+#           periodSeconds: 5
+#           tcpSocket:
+#             port: 22
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -6,7 +124,7 @@ metadata:
     metallb.universe.tf/address-pool: default
 spec:
   type: LoadBalancer
-
+  loadBalancerIP: 192.168.49.51
   selector:
     app: nginx
   ports:
@@ -25,28 +143,28 @@ spec:
 
 ---
 
-apiVersion: apps/v1 # Usa apps/v1beta2 para versiones anteriores a 1.9.0
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-deployment
+  name: nginx
+  labels:
+    app: nginx
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: nginx
-  replicas: 1 # indica al controlador que ejecute 1 pods
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
   template:
     metadata:
       labels:
         app: nginx
     spec:
       containers:
-      - name: nginx
-        image: nginx:v2 
+      - image: my_nginx
         imagePullPolicy: Never
-        ports:
-          - containerPort: 80
-            name: http
-          - containerPort: 443
-            name: https
-          - containerPort: 22
-            name: ssh
+        name: nginx

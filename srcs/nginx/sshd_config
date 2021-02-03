@@ -1,4 +1,4 @@
 Port 1234
 PermitRootLogin yes
-PasswordAuthentication yes
+PasswordAuthentication no
 Subsystem sftp /usr/lib/openssh/sftp-server
