@@ -11,6 +11,8 @@ RUN rm wordpress-5.6.tar.gz
 RUN mkdir -p /var/www && mv /wordpress /var/www/
 
 COPY	/src/wp-config.php			/var/www/wordpress/
-
+COPY	/src/execute.sh				/
 
 EXPOSE	5050
+
+ENTRYPOINT sh execute.sh

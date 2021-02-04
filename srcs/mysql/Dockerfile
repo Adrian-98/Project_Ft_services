@@ -5,10 +5,10 @@ RUN apk -U upgrade && apk add mariadb mariadb-client openrc && \
 
 COPY	/src/my.cnf			/etc/
 COPY	/src/wordpress.sql		/
-COPY	/src/start.sh			/
+COPY	/src/execute.sh			/
 
-RUN chmod 777 start.sh
+RUN chmod 777 execute.sh
 
 EXPOSE 3306
-ENTRYPOINT sh  start.sh
 
+ENTRYPOINT sh  execute.sh

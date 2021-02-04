@@ -23,8 +23,8 @@ COPY sshd_config        /etc/ssh/
 COPY nginx.conf         /etc/nginx/
 COPY /index.html		/var/www/index.html
 COPY /ssl_params.conf		/etc/nginx/
-COPY /start.sh			/
+COPY /execute.sh			/
 
 EXPOSE 80 443 
 
-ENTRYPOINT	sh start.sh
+ENTRYPOINT	sh execute.sh
