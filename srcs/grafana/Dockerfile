@@ -1,0 +1,12 @@
+FROM alpine:3.12
+
+RUN		apk add grafana --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ --allow-untrusted --no-cache
+
+COPY	/src/grafana.db			/usr/share/grafana/data/
+COPY	/src/execute.sh				/
+
+WORKDIR	/usr/share/grafana
+
+EXPOSE	3000
+
+ENTRYPOINT	sh /execute.sh
