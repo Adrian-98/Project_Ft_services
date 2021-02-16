@@ -18,4 +18,5 @@ EOF
 mysql -u root wordpress < wordpress.sql
 
 
-mysql -u root -p
+#mysql -u root -p
+telegraf & sleep infinite
