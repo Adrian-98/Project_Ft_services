@@ -6,6 +6,7 @@ metadata:
     metallb.universe.tf/address-pool: default
 spec:
   type: LoadBalancer
+  loadBalancerIP: 192.168.99.125
 
   selector:
     app: nginx
