@@ -8,6 +8,11 @@ RUN apk update && apk add vsftpd openssl && \
 		-keyout /etc/ssl/private/vsftpd.key \
 		-out /etc/ssl/certs/vsftpd.crt
 
+RUN		echo -e "user\nuser" | adduser user -h /ftps_user;
+RUN		chown user:user /ftps_user
+RUN		touch /var/log/vsftpd.log
+RUN		echo "user" >> /etc/vsftpd/vsftpd.userlist
+
 COPY 	/src/vsftpd.conf /etc/vsftpd/vsftpd.conf
 COPY	/src/telegraf.conf			/etc/telegraf/
 COPY	/src/execute.sh				/
