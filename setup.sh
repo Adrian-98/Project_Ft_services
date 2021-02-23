@@ -33,6 +33,7 @@ kubectl create secret generic -n metallb-system memberlist  --from-literal=secre
 kubectl apply -f srcs/config.yaml
 kubectl apply -f srcs/nginx.yaml
 kubectl apply -f srcs/mysql.yaml
+kubectl apply -f srcs/ftps_config.yaml
 kubectl apply -f srcs/ftps.yaml
 kubectl apply -f srcs/phpmyadmin.yaml
 kubectl apply -f srcs/wordpress.yaml
