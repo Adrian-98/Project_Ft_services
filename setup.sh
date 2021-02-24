@@ -21,6 +21,7 @@ docker build -t my_wordpress srcs/wordpress >> logs.txt
 docker build -t my_mysql srcs/mysql >> logs.txt
 docker build -t my_phpmyadmin srcs/phpmyadmin >> logs.txt
 docker build -t my_ftps srcs/ftps >> logs.txt
+docker build -t my_telegraf srcs/telegraf >> logs.txt
 docker build -t my_grafana srcs/grafana >> logs.txt
 docker build -t my_influxdb srcs/influxdb >> logs.txt
 echo "${BLUE}Docker build completed${END}"
@@ -33,10 +34,13 @@ kubectl create secret generic -n metallb-system memberlist  --from-literal=secre
 kubectl apply -f srcs/config.yaml
 kubectl apply -f srcs/nginx.yaml
 kubectl apply -f srcs/mysql.yaml
-kubectl apply -f srcs/ftps_config.yaml
+kubectl apply -f srcs/ftps-config.yaml
 kubectl apply -f srcs/ftps.yaml
 kubectl apply -f srcs/phpmyadmin.yaml
 kubectl apply -f srcs/wordpress.yaml
+kubectl apply -f srcs/telegraf-config.yaml
+kubectl apply -f srcs/telegraf.yaml
+kubectl apply -f srcs/grafana-config.yaml
 kubectl apply -f srcs/grafana.yaml
 kubectl apply -f srcs/influxdb.yaml
 echo "${BLUE}Deploy completed${END}"

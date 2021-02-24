@@ -1,11 +1,9 @@
 FROM alpine:3.12
 
-RUN		apk add grafana --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ --allow-untrusted --no-cache && \
-        apk add telegraf --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ --allow-untrusted --no-cache
+RUN		apk add grafana --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ --allow-untrusted --no-cache
 
 COPY	/src/grafana.db			/usr/share/grafana/data/
 COPY	/src/execute.sh				/
-COPY	/src/telegraf.conf			/etc/telegraf/
 
 WORKDIR	/usr/share/grafana
 

@@ -1,1 +1,1 @@
-telegraf & grafana-server
+grafana-server
