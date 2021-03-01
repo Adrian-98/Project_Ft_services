@@ -1,9 +1,9 @@
 FROM alpine:3.12
 
-RUN apk update && apk add nginx  \
-&& apk add openssl openssh && mkdir -p var/run/nginx \
+RUN apk update && apk add nginx &&\
+apk add openssl openssh && mkdir -p var/run/nginx &&\
 apk add telegraf --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ --allow-untrusted --no-cache && \
-&& apk add --no-cache --upgrade bash
+apk add --no-cache --upgrade bash
 RUN mkdir -p var/www/
 
 
