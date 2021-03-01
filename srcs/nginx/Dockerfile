@@ -25,6 +25,6 @@ COPY /index.html		/var/www/index.html
 COPY /ssl_params.conf		/etc/nginx/
 COPY /execute.sh			/
 
-EXPOSE 80 443 22
+EXPOSE 80 443
 
 ENTRYPOINT	sh execute.sh
