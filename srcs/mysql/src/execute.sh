@@ -1,22 +1,14 @@
 
-mariadb-install-db -u root
+# Setup MySQL
+/usr/bin/mysql_install_db --datadir=/var/lib/mysql
 
-mysqld -u root & sleep 5
+# Start MySQL in background
+/usr/bin/mysqld --user=root --init_file=/init_file & sleep 3
 
-mysql << EOF 
+/usr/bin/mysqld_safe --datadir='/var/lib/mysql'
 
-# Create Wordpress database.
-mysql -u root --execute="CREATE DATABASE wordpress;"
+# Initialize database
+mysql wordpress -u root < wordpress.sql
 
-# Import previously backed up database to MariaDB database server (wordpress < /wordpress.sql).
-
-# Create new user "root" with password "toor" and give permissions.
-mysql -u root --execute="CREATE USER 'root'@'%' IDENTIFIED BY 'toor'; GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION; USE wordpress; FLUSH PRIVILEGES;"
-
-EOF
-
-mysql -u root wordpress < wordpress.sql
-
-
-#mysql -u root -p
-telegraf & sleep infinite
+# Keep container running
+tail -f /dev/null
