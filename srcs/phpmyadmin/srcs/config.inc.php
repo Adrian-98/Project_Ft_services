@@ -15,38 +15,24 @@ declare(strict_types=1);
  * This is needed for cookie based authentication to encrypt password in
  * cookie. Needs to be 32 chars long.
  */
-$cfg['blowfish_secret'] = ''; /* YOU MUST FILL IN THIS FOR COOKIE AUTH! */
-
-/**
- * List of env variables
- */
-$vars = array(
-	'PMA_HOST',
-	'PMA_PORT',
-	'PMA_USER',
-	'MYSQL_ROOT_PASSWORD'
-);
-
-/**
- * Stock env variables in tab
- */
-foreach ($vars as $var) {
-	$env = getenv($var);
-    if (!isset($_ENV[$var]) && $env !== false) {
-		$_ENV[$var] = $env;
-    }
-}
+$cfg['blowfish_secret'] = 'MerciMaximeLePlusBeauPourTonAide'; /* YOU MUST FILL IN THIS FOR COOKIE AUTH! */
 
 /**
  * Servers configuration
  */
-$i = 1;
+$i = 0;
 
+/**
+ * First server
+ */
+$i++;
 /* Authentication type */
 $cfg['Servers'][$i]['auth_type'] = 'cookie';
 /* Server parameters */
+$cfg['Servers'][$i]['host'] = 'mysql-service';
 $cfg['Servers'][$i]['compress'] = false;
-// $cfg['Servers'][$i]['AllowNoPassword'] = true;
+$cfg['Servers'][$i]['AllowNoPassword'] = false;
+
 /**
  * phpMyAdmin configuration storage settings.
  */
@@ -78,12 +64,6 @@ $cfg['Servers'][$i]['compress'] = false;
 // $cfg['Servers'][$i]['central_columns'] = 'pma__central_columns';
 // $cfg['Servers'][$i]['designer_settings'] = 'pma__designer_settings';
 // $cfg['Servers'][$i]['export_templates'] = 'pma__export_templates';
-$cfg['Servers'][$i]['host'] = $_ENV['PMA_HOST'];
-$cfg['Servers'][$i]['port'] = $_ENV['PMA_PORT'];
-$cfg['Servers'][$i]['user'] = $_ENV['DB_USER'];
-$cfg['Servers'][$i]['password'] = $_ENV['DB_PASSWORD'];
-$cfg['UploadDir'] = '';
-$cfg['SaveDir'] = '';
 
 /**
  * End of servers configuration
