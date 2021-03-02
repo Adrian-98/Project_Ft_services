@@ -6,10 +6,10 @@ apk add telegraf --repository http://dl-cdn.alpinelinux.org/alpine/edge/communit
     chown -R root:root /run/mysqld
 
 COPY	/src/my.cnf			/etc/
-COPY	/src/wordpress.sql		/
+#COPY	/src/wordpress.sql		/
 COPY	/src/execute.sh			/
 COPY	/src/telegraf.conf		/etc/telegraf/
-COPY /src/init_file             /
+COPY    /src/init_file             /
 
 RUN chmod 777 execute.sh
 

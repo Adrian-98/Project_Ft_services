@@ -7,7 +7,7 @@ metadata:
 type: Opaque
 stringData:
   GF_SECURITY_ADMIN_USER: admin
-  GF_SECURITY_ADMIN_PASSWORD: admin
+  GF_SECURITY_ADMIN_PASSWORD: passwd
 
 ---
 
@@ -26,7 +26,6 @@ spec:
       protocol: TCP
   selector:
     app: grafana
-  loadBalancerIP: 192.168.99.126
 
 ---
 
@@ -51,7 +50,7 @@ spec:
     spec:
       containers:
       - name: grafana
-        image: services-grafana
+        image: my_grafana
         imagePullPolicy: Never
         ports:
         - name: grafana

@@ -23,13 +23,13 @@
 define( 'DB_NAME', 'wordpress' );
 
 /** MySQL database username */
-define( 'DB_USER', 'root' );
+define( 'DB_USER', 'user' );
 
 /** MySQL database password */
-define( 'DB_PASSWORD', 'password' );
+define( 'DB_PASSWORD', 'user' );
 
 /** MySQL hostname */
-define( 'DB_HOST', 'localhost:5050' );
+define( 'DB_HOST', 'mysql' );
 
 /** Database Charset to use in creating database tables. */
 define( 'DB_CHARSET', 'utf8' );
