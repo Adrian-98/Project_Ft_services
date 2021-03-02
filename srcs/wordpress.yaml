@@ -14,6 +14,8 @@ spec:
   selector:
     app: wordpress
     tier: mysql
+  type: LoadBalancer
+  loadBalancerIP: 192.168.99.128
 
 ---
 apiVersion: apps/v1
