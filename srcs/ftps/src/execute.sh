@@ -1,2 +1,1 @@
-telegraf
-tail -f /dev/null
+telegraf & vsftpd /etc/vsftpd/vsftpd.conf

@@ -7,10 +7,6 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-  - name: ftp-data
-    port: 20
-    targetPort: 20
-    protocol: TCP
   - name: ftp-command
     port: 21
     targetPort: 21
@@ -65,8 +61,6 @@ spec:
         image: my_ftps
         imagePullPolicy: Never
         ports:
-        - name: ftp-data
-          containerPort: 20
         - name: ftp-command
           containerPort: 21
         - name: pasv
