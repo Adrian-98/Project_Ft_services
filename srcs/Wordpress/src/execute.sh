@@ -1,3 +1,2 @@
-telegraf & php -S 0.0.0.0:5050 -t /var/www/wordpress/
-
-#php-fpm7 
+telegraf & php-fpm7  &
+/usr/sbin/nginx -g "daemon off;"

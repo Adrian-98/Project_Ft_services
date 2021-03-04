@@ -1,20 +1,23 @@
-FROM alpine:3.12
 
-RUN apk update && apk add wget php7 php7-fpm php7-mysqli php7-mbstring php7-json php7-session && \
-apk add telegraf --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ --allow-untrusted --no-cache
+FROM        alpine:3.12.1
 
-RUN mkdir -p /usr/share/webapps/ && cd /usr/share/webapps/
-RUN wget https://wordpress.org/wordpress-5.6.tar.gz
+RUN apk --no-cache add php7 php7-mysqli php7-json php7-mbstring php7-fpm php7-opcache nginx &&\
+    apk add telegraf --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ --allow-untrusted --no-cache
 
-RUN tar -xzvf wordpress-5.6.tar.gz 
-RUN rm wordpress-5.6.tar.gz
+RUN   adduser -D -g 'www' www && mkdir -p /run/nginx www && \
+      chown -R www:www /var/lib/nginx && chown -R www:www /www
+            
+RUN         wget http://wordpress.org/latest.tar.gz \
+            && tar -xzvf latest.tar.gz \
+            && rm latest.tar.gz \
+            && mv /wordpress /www/
 
-RUN mkdir -p /var/www && mv /wordpress /var/www/
+COPY 	     /src/nginx.conf /etc/nginx/nginx.conf
+COPY         /src/wp-config.php /www/
+COPY        /src/telegraf.conf			/etc/telegraf/
 
-COPY	/src/wp-config.php			/var/www/wordpress/
-COPY	/src/execute.sh				/
-COPY /src/telegraf.conf			/etc/telegraf/
+COPY        /src/execute.sh ./
 
-EXPOSE	5050
+EXPOSE 5050
 
-ENTRYPOINT sh execute.sh
+ENTRYPOINT sh execute.sh  
