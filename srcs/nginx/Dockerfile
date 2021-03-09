@@ -18,9 +18,6 @@ RUN rm /etc/nginx/nginx.conf
 
 RUN		ssh-keygen -A
 
-#RUN		echo 'Welcome to SSH of nginx by amunoz-p' > /etc/motd
-
-#COPY sshd_config        /etc/ssh/
 COPY nginx.conf         /etc/nginx/
 COPY /index.html		/var/www/index.html
 COPY /ssl_params.conf		/etc/nginx/
